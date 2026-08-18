@@ -7,9 +7,9 @@ namespace frontend\modules\books\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "book".

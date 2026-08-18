@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 /**
  * @var yii\web\View $this
@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 $model->authorList = ArrayHelper::getColumn($model->authors, 'id');
 ?>
 <div class="book-update">
-
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="my-5">
         <?= html::a(Yii::t('app', 'Удалить'), ['/books/catalog/delete', 'id' => $model->id], ['class' => 'btn btn-danger', 'data' => [

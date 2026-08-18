@@ -8,7 +8,6 @@ use Yii;
 use Exception;
 use frontend\modules\books\models\Subs;
 use frontend\modules\books\models\Author;
-use function Codeception\Lib\Console\message;
 
 class SubscribeController extends BooksController
 {
