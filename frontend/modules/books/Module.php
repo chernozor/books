@@ -21,6 +21,7 @@ class Module extends \yii\base\Module
         parent::init();
     }
 
+// Если надо закастомить, то пишем свои
 //    public function bootstrap($app)
 //    {
 //        if ($app instanceof Application) {
