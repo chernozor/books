@@ -3,9 +3,12 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/** @var yii\web\View $this */
-/** @var frontend\modules\books\models\Book $model */
-/** @var yii\widgets\ActiveForm $form */
+/**
+ * @var yii\web\View $this
+ * @var frontend\modules\books\models\Book $model
+ * @var yii\widgets\ActiveForm $form
+ * @var array $author
+ */
 ?>
 
 <div class="book-form">
@@ -19,6 +22,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'isbn')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'image_url')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'authorList')->checkboxList($authorList) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn btn-success']) ?>

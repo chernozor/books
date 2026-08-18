@@ -2,8 +2,11 @@
 
 use yii\helpers\Html;
 
-/** @var yii\web\View $this */
-/** @var frontend\modules\books\models\Book $model */
+/**
+ * @var yii\web\View $this
+ * @var frontend\modules\books\models\Book $model
+ * @var array $authorList
+ */
 
 $this->title = Yii::t('app', 'Create Book');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Books'), 'url' => ['index']];
@@ -15,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'authorList' => $authorList,
     ]) ?>
 
 </div>

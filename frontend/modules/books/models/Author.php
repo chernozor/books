@@ -8,6 +8,7 @@ use Yii;
 use common\models\User;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 
@@ -88,6 +89,23 @@ class Author extends \yii\db\ActiveRecord
     public function getSubUsers(): ActiveQuery
     {
         return $this->hasMany(User::class, ['id' => 'user_id'])->via('subs');
+    }
+
+    public static function getAuthorList(): array
+    {
+        $authorList = Author::find()->all();
+        if ($authorList) {
+            return ArrayHelper::map($authorList, 'id', function ($item) {
+                return implode(' ', [
+                    'first_name' => $item->first_name,
+                    'middle_name' => $item->middle_name,
+                    'last_name' => $item->last_name,
+                ]);
+            });
+        }
+
+        return [];
+
     }
 
     public static function getTop($date = null): array

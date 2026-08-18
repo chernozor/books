@@ -19,7 +19,10 @@ use yii\helpers\ArrayHelper;
  * @property string $description
  * @property integer $year
  * @property string $isbn
- * @property string $slug
+ * @property integer $created_at
+ * @property integer $updated_at
+ * @property integer $created_by
+ * @property integer $updated_by
  * @property array $bookAuthors
  * @property array $subs
  * @property array $authors
@@ -28,6 +31,8 @@ class Book extends \yii\db\ActiveRecord
 {
     const SCENARIO_BOOK_CREATE = 'book-create';
     const EVENT_BOOK_CREATE = 'bookCreateEvent';
+
+    public $authorList;
 
     public static function tableName()
     {
@@ -58,6 +63,7 @@ class Book extends \yii\db\ActiveRecord
             ['isbn', 'match', 'pattern' => '/^\d{13}$/', 'message' => 'Ограничение в 13 цифр'],
             [['name', 'description'], 'string', 'max' => 5000],
             [['image_url',], 'string', 'max' => 255],
+            [['authorList'], 'safe'],
         ];
     }
 
