@@ -23,15 +23,6 @@ class m260817_163424_create_book_table extends Migration
             $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE=InnoDB';
         }
 
-        if ($this->db->schema->getTableSchema($this->bookAuthorTable) == null) {
-            $this->createTable($this->bookAuthorTable, [
-                'book_id' => $this->integer()->notNull(),
-                'author_id' => $this->integer()->notNull(),
-            ], $tableOptions);
-
-            $this->addPrimaryKey('pk-book-author', $this->bookAuthorTable, ['book_id', 'author_id']);
-        }
-
         if ($this->db->schema->getTableSchema($this->bookTable) == null) {
             $this->createTable($this->bookTable, [
                 'id' => $this->primaryKey(),
@@ -49,6 +40,34 @@ class m260817_163424_create_book_table extends Migration
             $this->createIndex('idx-book-name', $this->bookTable, 'name');
             $this->createIndex('idx-book-isbn', $this->bookTable, 'isbn');
 
+            if ($this->db->schema->getTableSchema($this->bookAuthorTable) == null) {
+                $this->createTable($this->bookAuthorTable, [
+                    'book_id' => $this->integer()->notNull(),
+                    'author_id' => $this->integer()->notNull(),
+                ], $tableOptions);
+
+                $this->addPrimaryKey('pk-book-author', $this->bookAuthorTable, ['book_id', 'author_id']);
+
+                $this->addForeignKey(
+                    'fk-books-author_id',
+                    $this->bookAuthorTable,
+                    'author_id',
+                    '{{%author}}',
+                    'id',
+                    'CASCADE', // onDelete or set null/restrict
+                    'CASCADE'  // onUpdate or set null/restrict
+                );
+
+                $this->addForeignKey(
+                    'fk-books-book_id',
+                    $this->bookAuthorTable,
+                    'book_id',
+                    '{{%book}}',
+                    'id',
+                    'CASCADE', // onDelete or set null
+                    'CASCADE'  // onUpdate or set null
+                );
+            }
 
             if (YII_ENV_DEV) {
                 for ($i = 1; $i <= 20; $i++) {
@@ -84,6 +103,9 @@ class m260817_163424_create_book_table extends Migration
         if (YII_ENV_PROD) {
             return false;
         }
+
+        $this->dropForeignKey('fk-books-book_id', $this->bookAuthorTable);
+        $this->dropForeignKey('fk-books-author_id', $this->bookAuthorTable);
 
         if ($this->db->schema->getTableSchema($this->bookTable)) {
             $this->dropTable($this->bookTable);

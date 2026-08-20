@@ -22,6 +22,8 @@ class BookAuthor extends \yii\db\ActiveRecord
     {
         return [
             [['book_id', 'author_id'], 'integer'],
+            ['book_id', 'exist', 'targetClass' => Book::class, 'targetAttribute' => 'id'],
+            ['author_id', 'exist', 'targetClass' => Author::class, 'targetAttribute' => 'id'],
         ];
     }
 

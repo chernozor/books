@@ -9,7 +9,7 @@ declare(strict_types=1);
  */
 
 use yii\web\View;
-
+use yii\helpers\Html;
 
 ?>
 <div class="container">
@@ -19,7 +19,9 @@ use yii\web\View;
     <div class="col-xs-12">
         <?php
         foreach ($report as $top) {
-            echo "{$top['id']} {$top['last_name']}  => {$top['bookCount']}<br/>";
+            echo "{$top['id']} {$top['last_name']}  => {$top['bookCount']}";
+            echo Html::a('Подписаться на автора', ['/books/subscribe', 'author_id' => $top['id']], ['class' => 'ms-3 btn btn-primary mb-3']);
+            echo '<br>';
         } ?>
     </div>
 </div>

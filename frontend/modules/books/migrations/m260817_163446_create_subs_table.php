@@ -25,11 +25,31 @@ class m260817_163446_create_subs_table extends Migration
         $table = $this->db->schema->getTableSchema($this->subsTable);
         if ($table === null) {
             $this->createTable($this->subsTable, [
-                'author_id' => $this->integer(),
-                'user_id' => $this->integer(),
+                'author_id' => $this->integer()->notNull(),
+                'user_id' => $this->integer()->notNull(),
             ], $tableOptions);
 
             $this->addPrimaryKey('pk-subs-user_author', $this->subsTable, ['user_id', 'author_id']);
+
+            $this->addForeignKey(
+                'fk-subs-author_id',
+                $this->subsTable,
+                'author_id',
+                '{{%author}}',
+                'id',
+                'CASCADE', // onDelete or set null/restrict
+                'CASCADE'  // onUpdate or set null/restrict
+            );
+
+            $this->addForeignKey(
+                'fk-subs-user_id',
+                $this->subsTable,
+                'author_id',
+                '{{%user}}',
+                'id',
+                'CASCADE', // onDelete or set null/restrict
+                'CASCADE'  // onUpdate or set null/restrict
+            );
         }
 
         if (YII_ENV_DEV) {
@@ -57,6 +77,9 @@ class m260817_163446_create_subs_table extends Migration
         if (YII_ENV_PROD) {
             return false;
         }
+
+        $this->dropForeignKey('fk-subs-author_id', $this->subsTable);
+        $this->dropForeignKey('fk-subs-user_id', $this->subsTable);
 
         if ($this->db->schema->getTableSchema($this->subsTable)) {
             $this->dropTable($this->subsTable);

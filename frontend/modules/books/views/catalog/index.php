@@ -31,7 +31,7 @@ use yii\helpers\Html;
                             <?php
                             foreach ($book['authors'] as $author) { ?>
                                 <p><?= "{$author['first_name']} {$author['middle_name']} {$author['last_name']}" ?></p>
-                                <?= Html::a('Подписаться на новые книги', ['/books/subscribe', 'author_id' => $author['id']], ['class' => 'btn btn-primary mb-3']) ?>
+                                <?= Html::a('Подписаться на автора', ['/books/subscribe', 'author_id' => $author['id']], ['class' => 'btn btn-primary mb-3']) ?>
                             <?php } ?>
                         </div>
                         <?php

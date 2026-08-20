@@ -24,6 +24,8 @@ class Subs extends ActiveRecord
     {
         return [
             [['author_id', 'user_id'], 'integer'],
+            ['user_id', 'exist', 'targetClass' => User::class, 'targetAttribute' => 'id'],
+            ['author_id', 'exist', 'targetClass' => Author::class, 'targetAttribute' => 'id'],
         ];
     }
 
