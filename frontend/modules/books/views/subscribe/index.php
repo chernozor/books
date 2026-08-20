@@ -13,5 +13,5 @@ use yii\web\View;
 ?>
 <div class="container">
     <div class="mb-3"><?= $message ?></div>
-    <?= \yii\helpers\Html::a(Yii::t('app', 'Назад'), ['/books/catalog'], ['class' => 'btn btn-primary']) ?>
+    <?= \yii\helpers\Html::a(Yii::t('app', 'На главную'), ['/books/catalog'], ['class' => 'btn btn-primary']) ?>
 </div>
